@@ -1,7 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
 require("dotenv").config();
 
 const app = express();
@@ -10,45 +8,15 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
-// Swagger configuration
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "TrackStar API",
-      version: "1.0.0",
-      description: "Personal Task & Habit Tracker API",
-    },
-    servers: [
-      {
-        url: process.env.RENDER_URL || `http://localhost:${PORT}`,
-      },
-    ],
-  },
-  apis: ["./routes/*.js"], // Path to the API routes
-};
-
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
 // Database connection
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/trackstar")
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Basic route
-app.get("/", (req, res) => {
-  res.json({
-    message: "TrackStar API is running!",
-    documentation: "/api-docs",
-    api: "/api",
-  });
-});
-
-// Import and use API routes
-const apiRoutes = require("./routes/index");
-app.use("/api", apiRoutes);
+// Import and use all routes
+const routes = require("./routes/index");
+app.use("/", routes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -63,7 +31,5 @@ app.use((req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log(
-    `API Documentation available at http://localhost:${PORT}/api-docs`,
-  );
+  console.log(`Visit http://localhost:${PORT}/ for API information`);
 });
