@@ -14,6 +14,11 @@ router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Root route - Server status
 router.get("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Server']
+    #swagger.summary = 'Get server status and information'
+    #swagger.description = 'Returns general information about the TrackStar API server including version, status, and available endpoints.'
+  */
   res.json({
     message: "TrackStar API is running!",
     documentation: "/api-docs",
@@ -35,6 +40,11 @@ apiRouter.use("/habit-logs", habitLogRoutes);
 
 // Root API route - API information
 apiRouter.get("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Server']
+    #swagger.summary = 'Get API information and available endpoints'
+    #swagger.description = 'Returns detailed information about the TrackStar API including all available endpoints and their purposes.'
+  */
   res.json({
     message: "TrackStar API - Personal Task & Habit Tracker",
     version: "1.0.0",
@@ -52,6 +62,11 @@ apiRouter.get("/", (req, res) => {
 
 // Health check endpoint
 apiRouter.get("/health", (req, res) => {
+  /*  
+    #swagger.tags = ['Server']
+    #swagger.summary = 'Health check endpoint'
+    #swagger.description = 'Returns server health status including uptime, memory usage, and Node.js version.'
+  */
   res.json({
     status: "healthy",
     timestamp: new Date().toISOString(),

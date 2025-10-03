@@ -111,7 +111,44 @@ const {
  *       401:
  *         description: User not authenticated
  */
-router.get("/", getAllHabitLogs);
+router.get("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Habit Logs']
+    #swagger.summary = 'Get all habit logs for current user'
+    #swagger.description = 'Retrieve all habit completion logs for the authenticated user with optional filtering.'
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['habitId'] = {
+      in: 'query',
+      description: 'Filter by specific habit ID',
+      required: false,
+      type: 'string'
+    }
+    #swagger.parameters['startDate'] = {
+      in: 'query',
+      description: 'Filter logs from this date',
+      required: false,
+      type: 'string'
+    }
+    #swagger.parameters['endDate'] = {
+      in: 'query',
+      description: 'Filter logs until this date',
+      required: false,
+      type: 'string'
+    }
+    #swagger.parameters['limit'] = {
+      in: 'query',
+      description: 'Maximum number of logs to return',
+      required: false,
+      type: 'integer'
+    }
+  */
+  getAllHabitLogs(req, res);
+});
 
 /**
  * @swagger
@@ -148,7 +185,26 @@ router.get("/", getAllHabitLogs);
  *       404:
  *         description: Habit log not found
  */
-router.get("/:id", getHabitLogById);
+router.get("/:id", (req, res) => {
+  /*  
+    #swagger.tags = ['Habit Logs']
+    #swagger.summary = 'Get a specific habit log by ID'
+    #swagger.description = 'Retrieve details of a specific habit completion log by its ID.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'Habit Log ID',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+  */
+  getHabitLogById(req, res);
+});
 
 /**
  * @swagger
@@ -217,7 +273,33 @@ router.get("/:id", getHabitLogById);
  *       404:
  *         description: Habit not found
  */
-router.post("/", createHabitLog);
+router.post("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Habit Logs']
+    #swagger.summary = 'Log a habit completion'
+    #swagger.description = 'Record a completion of a habit for the current user.'
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Habit completion information',
+      required: true,
+      schema: {
+        habitId: '64a7b8c9d1234567890abcde',
+        completedDate: '2024-01-15',
+        completionCount: 1,
+        notes: 'Completed morning workout',
+        mood: 'good',
+        difficulty: 3
+      }
+    }
+  */
+  createHabitLog(req, res);
+});
 
 /**
  * @swagger
@@ -278,7 +360,37 @@ router.post("/", createHabitLog);
  *       404:
  *         description: Habit log not found
  */
-router.put("/:id", updateHabitLog);
+router.put("/:id", (req, res) => {
+  /*  
+    #swagger.tags = ['Habit Logs']
+    #swagger.summary = 'Update a habit log'
+    #swagger.description = 'Update details of an existing habit completion log.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'Habit Log ID',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Updated habit log information',
+      required: true,
+      schema: {
+        completionCount: 2,
+        notes: 'Updated notes',
+        mood: 'excellent',
+        difficulty: 2
+      }
+    }
+  */
+  updateHabitLog(req, res);
+});
 
 /**
  * @swagger
@@ -315,7 +427,26 @@ router.put("/:id", updateHabitLog);
  *       404:
  *         description: Habit log not found
  */
-router.delete("/:id", deleteHabitLog);
+router.delete("/:id", (req, res) => {
+  /*  
+    #swagger.tags = ['Habit Logs']
+    #swagger.summary = 'Delete a habit log'
+    #swagger.description = 'Delete a specific habit completion log by its ID.'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'Habit Log ID',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+  */
+  deleteHabitLog(req, res);
+});
 
 /**
  * @swagger
@@ -380,6 +511,31 @@ router.delete("/:id", deleteHabitLog);
  *       404:
  *         description: Habit not found
  */
-router.get("/stats/:habitId", getHabitStats);
+router.get("/stats/:habitId", (req, res) => {
+  /*  
+    #swagger.tags = ['Habit Logs']
+    #swagger.summary = 'Get statistics for a specific habit'
+    #swagger.description = 'Retrieve comprehensive statistics and analytics for a specific habit including completion rates, streaks, and performance metrics.'
+    #swagger.parameters['habitId'] = {
+      in: 'path',
+      description: 'Habit ID',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['days'] = {
+      in: 'query',
+      description: 'Number of days to analyze',
+      required: false,
+      type: 'integer'
+    }
+  */
+  getHabitStats(req, res);
+});
 
 module.exports = router;

@@ -75,7 +75,20 @@ const {
  *       404:
  *         description: User not found
  */
-router.get("/", getCurrentUser);
+router.get("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Get current user profile'
+    #swagger.description = 'Retrieve the profile information of the currently authenticated user.'
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+  */
+  getCurrentUser(req, res);
+});
 
 /**
  * @swagger
@@ -126,7 +139,30 @@ router.get("/", getCurrentUser);
  *       404:
  *         description: User not found
  */
-router.put("/", updateCurrentUser);
+router.put("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Update current user profile'
+    #swagger.description = 'Update the profile information of the currently authenticated user.'
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Updated user information',
+      required: true,
+      schema: {
+        name: 'John Doe',
+        username: 'johndoe',
+        timezone: 'America/New_York'
+      }
+    }
+  */
+  updateCurrentUser(req, res);
+});
 
 /**
  * @swagger
@@ -157,7 +193,20 @@ router.put("/", updateCurrentUser);
  *       404:
  *         description: User not found
  */
-router.delete("/", deleteCurrentUser);
+router.delete("/", (req, res) => {
+  /*  
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Delete/deactivate user account'
+    #swagger.description = 'Deactivate the current user account. This is a soft delete operation.'
+    #swagger.parameters['x-user-id'] = {
+      in: 'header',
+      description: 'User ID for authentication',
+      required: true,
+      type: 'string'
+    }
+  */
+  deleteCurrentUser(req, res);
+});
 
 /**
  * @swagger
@@ -215,6 +264,26 @@ router.delete("/", deleteCurrentUser);
  *       400:
  *         description: Validation error or user already exists
  */
-router.post("/register", createUser);
+router.post("/register", (req, res) => {
+  /*  
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Register new user (OAuth callback)'
+    #swagger.description = 'Create a new user account or login existing user via OAuth provider.'
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'User registration information from OAuth provider',
+      required: true,
+      schema: {
+        providerId: '12345',
+        provider: 'github',
+        name: 'John Doe',
+        email: 'john@example.com',
+        username: 'johndoe',
+        avatar: 'https://avatar.url.com/john.jpg'
+      }
+    }
+  */
+  createUser(req, res);
+});
 
 module.exports = router;
